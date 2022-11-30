@@ -6,27 +6,48 @@
 function numThenChar(arr) {
     const letterUp = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
     const letterLow = letterUp.map(e => e.toLowerCase());
-    const numb = [0,1,2,3,4,5,6,7,8,9];
-    const allvalues = [...numb,...letterUp, ...letterLow];     //niz svih dozvoljenih elemenata sortiranih na potreban nacin
+    const allLetters = [...letterUp, ...letterLow];           //niz svih slova sortiranih na potreban nacin
     var arr1 = [];
-    var x = 0;
-// console.log(allvalues);
-    for (let i = 0; i < arr.length; i++) {                    //formiranje jedinstvenog niza i njegovo sortiranje
+    var arrNumb = [];
+    var arrLett = [];
+    var arrMerge=[];
+    var indexM = 0;
+// console.log(allLetters);
+    for (let i = 0; i < arr.length; i++) {                   //formiranje jedinstvenog niza(od vise manjih)
         for (let j = 0; j < arr[i].length; j++) {
             arr1.push(arr[i][j]);
         };
     };
-    arr1.sort((a, b) => allvalues.indexOf(a) - allvalues.indexOf(b));
-    //console.log(arr1);
+
+    for (let g = 0; g < arr1.length; g++) {                 //izdvajanje brojeva i slova u posebne nizove zbog lakseg sortiranja
+        if (!isNaN(arr1[g])) {
+            arrNumb.push(arr1[g]);
+        }
+        if (allLetters.includes(arr1[g])) {
+            arrLett.push(arr1[g]);
+        }
+    }
+    arrNumb.sort((a, b) => a - b);                          //sortiranje niza brojeva i niza slova
+    arrLett.sort((a, b) => allLetters.indexOf(a) - allLetters.indexOf(b));
+    arrMerge = arrNumb.concat(arrLett);
+
+    if (arrMerge.length<arr1.length) {                      //Provera da li se u nizu nalazi nedozvoljeni element
+        return "You use unsuported caracter!";
+    }
+
+    //console.log(arrMerge);
     for (let n = 0; n < arr.length; n++) {                   // upisivanje sortiranog niza u staru strukturu
         for (let m = 0; m < arr[n].length; m++){ 
-                    arr[n][m] = arr1[x];
-                    x++;
+                    arr[n][m] = arrMerge[indexM];
+                    indexM++;
         } 
     }
+    
     return arr;
+    //return "1. "+ arr;
 }
-console.log(numThenChar([[1, 2, 4, 3, "a", "b"], [6, "c", 5], [7, "d"], ["f", "e", 8] ]));
+console.log(numThenChar([[1, 2, 4.4, "f", "a", "b"], [0], [0.5, "d","X",3,"s"], ["f", "e", 8], ["p","Y","Z"], [12,18]]));
+
 
 // 2. Create a function that takes the dimensions of two triangles (as arrays) and checks if the first triangle fits into the second one.
 // Triangle fits if it has the same or smaller size as the hole.
