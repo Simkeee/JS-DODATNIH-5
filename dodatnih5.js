@@ -38,8 +38,8 @@ function numThenChar(arr) {
     //console.log(arrMerge);
     for (let n = 0; n < arr.length; n++) {                   // upisivanje sortiranog niza u staru strukturu
         for (let m = 0; m < arr[n].length; m++){ 
-                    arr[n][m] = arrMerge[indexM];
-                    indexM++;
+            arr[n][m] = arrMerge[indexM];
+            indexM++;
         } 
     }
     
@@ -188,7 +188,7 @@ console.log(bingoCheck([
 // canGiveBlood("A-", "AB+") ➞ true
 function canGiveBlood(type1,type2) {
     var result = false;
-if(type1[type1.length-1] == "+" && type1[type1.length-1] == "+"){ //+ daje, +prima
+if(type1[type1.length-1] == "+" && type2[type2.length-1] == "+"){ //+ daje, +prima
     result = true;
     if (type1[0] == "A" && 
         type2[0] != "A" && 
